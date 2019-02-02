@@ -1,3 +1,4 @@
+import { ToolBarData } from './../../classes/toolbarData';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./customers-table.component.scss']
 })
 export class CustomersTableComponent implements OnInit {
+  public toolBarData: ToolBarData;
 
   constructor() { }
 
   ngOnInit() {
+    this.createToolBarData();
   }
 
+
+  createToolBarData() {
+    this.toolBarData = new ToolBarData('Customers List', 'primary');
+  }
 }
