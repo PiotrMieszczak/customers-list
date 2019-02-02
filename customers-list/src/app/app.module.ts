@@ -8,11 +8,13 @@ import { AppComponent } from './app.component';
 
 import { CustomersTableComponent } from './components/customers-table/customers-table.component';
 import { CustomersTableService } from './components/customers-table/customers-table.service';
+import { ToolbarComponent } from './components/shared/toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomersTableComponent
+    CustomersTableComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
