@@ -1,6 +1,6 @@
 export class QueryParams {
   private whereElement: Object = {};
-  private _limit: number = 10;
+  private _limit: number = 50;
   private _start: number;
   private _sort: string;
   private _order: string;
@@ -23,7 +23,7 @@ export class QueryParams {
    * @param  {number} limit
    * @returns void
    */
-  public limit(limit: number): void {
+  public limit(limit: number = 10): void {
     this._limit = limit;
   }
 
@@ -33,7 +33,7 @@ export class QueryParams {
    * @param  {number} offset
    * @returns void
    */
-  public offset(offset: number): void {
+  public offset(offset: number = 0): void {
     this._start = offset;
   }
 
@@ -43,37 +43,8 @@ export class QueryParams {
    * @param {string} column
    * @param direction
    */
-  public sortBy(column: string, direction: string = 'ASC'): void {
+  public sortBy(column: string = 'name', direction: string = 'ASC'): void {
     this._sort = column;
     this._order = direction;
-  }
-
-
-  /**
-   * Parse any object or array to query string
-   *
-   * @param  {Array<any>|Object} data
-   * @param  {any} prefix=undefined
-   * @returns string
-   */
-  public toQueryString(data: Array<any> | Object, prefix: any = undefined): string {
-    let str = [], p;
-    for (p in data) {
-      if (data[p]) {
-        if (data.hasOwnProperty(p)) {
-          const k = prefix
-            ? prefix + '[' + p + ']'
-            : p;
-            const v = data[p];
-
-          str.push((v !== null && typeof v === 'object') ? this.toQueryString(v, k) : k + '=' + v);
-        }
-      } else {
-        continue;
-      }
-    }
-
-    str = str.filter(value => value !== '');
-    return str.join('&');
   }
 }

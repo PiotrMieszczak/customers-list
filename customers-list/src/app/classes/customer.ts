@@ -4,14 +4,11 @@ export interface Customer {
   name: string,
   country: string,
   websiteUrl: string
-}
-
-export interface SmallCustomer extends Customer {
   numberOfEmployees: number,
   contractExpiryDate: string
 }
 
-export interface BigCustomer extends SmallCustomer {
+export interface BigCustomer extends Customer {
   annualTurnover: string,
   complianceChecked: boolean
 }
