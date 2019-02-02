@@ -10,7 +10,7 @@
             </ng-container>
             
           <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-          <tr mat-row (dbclick)="editCustomer(customer.id)" *matRowDef="let customer; columns: displayedColumns;" class="table__row">
+          <tr mat-row (click)="editCustomer(customer.id)" *matRowDef="let customer; columns: displayedColumns;" class="table__row">
   
           </tr>
         </table>

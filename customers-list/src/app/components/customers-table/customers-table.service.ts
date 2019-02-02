@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
-import { Customer, CustomerDb } from '../../classes/customer';
+import { CustomerDb } from '../../classes/customer';
 import { QueryParams } from '../../classes/queryParams';
-
 import { HttpService } from '../../http.service'
 import * as moment from 'moment';
-import { map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })

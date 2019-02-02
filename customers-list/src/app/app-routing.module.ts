@@ -1,6 +1,8 @@
-import { CustomersTableComponent } from './components/customers-table/customers-table.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+import { CustomersTableComponent } from './components/customers-table/customers-table.component';
+import { UserDetailsComponent } from './containers/user-details/user-details.component';
 
 const routes: Routes = [
   {
@@ -8,6 +10,9 @@ const routes: Routes = [
   }, 
   {    
     path: 'customers-list', component:CustomersTableComponent
+  },
+  {
+    path:'customer/:id', component: UserDetailsComponent
   }
 ];
 

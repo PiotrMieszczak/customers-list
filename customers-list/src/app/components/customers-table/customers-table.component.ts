@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable, Subject, combineLatest, of } from 'rxjs';
-import { map, takeUntil, startWith, catchError,  switchMap, shareReplay } from 'rxjs/operators';
+import { map, startWith, catchError,  switchMap, shareReplay } from 'rxjs/operators';
 
 import { MatPaginator, MatSort } from '@angular/material';
 
@@ -34,7 +35,7 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
   private count: Subject<number> = new Subject<number>();
   public count$ = this.count.asObservable();
 
-  constructor(private _customersTableService: CustomersTableService) { }
+  constructor(private _customersTableService: CustomersTableService, private _router: Router) { }
 
   ngOnInit() {
     this.createToolBarData();
@@ -109,6 +110,16 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
    */
   createDisplayedColumnName(columnName: string): string {
     return columnName.split(/(?=[A-Z])/).join(' ').toLocaleUpperCase();
+  }
+
+  /**
+   * Navigates to customers details subpage
+   * 
+   * @param  {number} id
+   * @returns void
+   */
+  editCustomer(id: number): void {
+    this._router.navigate(['customer', id]);
   }
 
   ngOnDestroy(): void {
