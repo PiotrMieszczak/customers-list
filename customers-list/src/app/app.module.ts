@@ -5,12 +5,14 @@ import { MaterialModule } from './material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { CustomersTableComponent } from './components/customers-table/customers-table.component';
+import { CustomersTableService } from './components/customers-table/customers-table.service';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomersTableComponent,
+    CustomersTableComponent
   ],
   imports: [
     BrowserModule,
@@ -18,7 +20,9 @@ import { CustomersTableComponent } from './components/customers-table/customers-
     MaterialModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    CustomersTableService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
