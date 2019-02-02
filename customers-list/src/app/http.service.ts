@@ -25,8 +25,8 @@ export class HttpService {
    * @returns {Observable<any>}
    * @memberof HttpService
    */
-  public get<T>(url: string): Observable<T> {
-    return this.http.get<T>(this.settings.apiUrl + url);
+  public get(url: string): Observable<any> {
+    return this.http.get(this.settings.apiUrl + url, { observe: 'response' });
   }
 
 

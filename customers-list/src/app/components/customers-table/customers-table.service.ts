@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Customer } from '../../classes/customer';
+import { Customer, CustomerDb } from '../../classes/customer';
 import { QueryParams } from '../../classes/queryParams';
 
 import { HttpService } from '../../http.service'
 import * as moment from 'moment';
+import { map, tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,8 +30,17 @@ export class CustomersTableService {
    * @param  {QueryParams} params
    * @returns Observable
    */
-  getCustomersList(params: QueryParams): Observable<Customer[]> {
+  getCustomersList(params: QueryParams): Observable<CustomerDb> {
     const queryParams = this._httpService.toQueryString(params);
-    return this._httpService.get<Customer[]>('customer?'+ queryParams);
+    return this._httpService.get('customer?'+ queryParams)
+       .pipe(
+         map(data => {
+           const customerData: CustomerDb = {
+             data: data.body,
+             count:  data.headers.getAll('x-total-count')
+           }
+           return customerData;
+       })
+      )
   }
 }

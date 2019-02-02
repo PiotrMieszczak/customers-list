@@ -12,3 +12,8 @@ export interface BigCustomer extends Customer {
   annualTurnover: string,
   complianceChecked: boolean
 }
+
+export interface CustomerDb  {
+  data: Customer[],
+  count: number
+}

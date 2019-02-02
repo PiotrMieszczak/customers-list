@@ -1,9 +1,10 @@
 export class QueryParams {
   private whereElement: Object = {};
-  private _limit: number = 50;
+  private _limit: number;
   private _start: number;
   private _sort: string;
   private _order: string;
+  private _page: number;
 
   constructor() { }
 
@@ -23,7 +24,7 @@ export class QueryParams {
    * @param  {number} limit
    * @returns void
    */
-  public limit(limit: number = 10): void {
+  public setLimit(limit: number = 15): void {
     this._limit = limit;
   }
 
@@ -33,7 +34,7 @@ export class QueryParams {
    * @param  {number} offset
    * @returns void
    */
-  public offset(offset: number = 0): void {
+  public setOffset(offset: number = 0): void {
     this._start = offset;
   }
 
@@ -46,5 +47,15 @@ export class QueryParams {
   public sortBy(column: string = 'name', direction: string = 'ASC'): void {
     this._sort = column;
     this._order = direction;
+  }
+
+  /**
+   * Definition of page count
+   * 
+   * @param  {number} page
+   * @returns void
+   */
+  public setPage(page :number): void {
+    this._page = page;
   }
 }

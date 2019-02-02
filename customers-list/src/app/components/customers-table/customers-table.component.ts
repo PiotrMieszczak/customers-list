@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { Observable, Subject, combineLatest, of } from 'rxjs';
-import { map, takeUntil, startWith, catchError,  switchMap, } from 'rxjs/operators';
+import { map, takeUntil, startWith, catchError,  switchMap, shareReplay } from 'rxjs/operators';
 
 import { MatPaginator, MatSort } from '@angular/material';
 
 import { CustomersTableService } from './customers-table.service';
 import { ToolBarData } from './../../classes/toolbarData';
 import { QueryParams } from '../../classes/queryParams';
-import { Customer } from '../../classes/customer';
+import { Customer, CustomerDb } from '../../classes/customer';
 
 @Component({
   selector: 'customers-table',
@@ -31,6 +31,9 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
     'complianceChecked'
   ];
   private _guard$ = new Subject();
+  private count: Subject<number> = new Subject<number>();
+  public count$ = this.count.asObservable();
+
   constructor(private _customersTableService: CustomersTableService) { }
 
   ngOnInit() {
@@ -63,8 +66,9 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
           const params = this.createQueryParams(sortData, paginationData);
           return this._customersTableService.getCustomersList(params)
             .pipe(
-              map(customers => {
-                return customers.map(customer => {
+              map((customersDb: CustomerDb) => {
+                this.count.next(customersDb.count);
+                return customersDb.data.map(customer => {
                   customer.contractExpiryDate = this._customersTableService.formatDate(customer.contractExpiryDate);
                   return customer;
                 })
@@ -75,7 +79,8 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
                 return of([]);
               })
             )
-        })
+        }),
+        shareReplay(1)
       )
   }
 
@@ -89,7 +94,10 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
   createQueryParams(sortData, pagData): QueryParams {
     const params = new QueryParams();
     params.sortBy(sortData.active, sortData.direction);
-    params.limit(pagData.pageSize);
+    params.setLimit(pagData.pageSize);
+    params.setOffset(pagData.index);
+    const page = pagData.pageIndex ? pagData.pageIndex + 1 : 1;
+    params.setPage(page);
     return params;
   }
 
