@@ -14,6 +14,7 @@ import { CustomersTableService } from './components/customers-table/customers-ta
 import { ToolbarComponent } from './components/shared/toolbar/toolbar.component';
 import { HttpService } from './http.service';
 import { CustomerDetailsComponent } from './containers/customer-details/customer-details.component';
+import { CustomerFormComponent } from './components/customer-form/customer-form.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CustomerDetailsComponent } from './containers/customer-details/customer
     CustomersTableComponent,
     ToolbarComponent,
     CustomerDetailsComponent,
+    CustomerFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,8 +34,9 @@ import { CustomerDetailsComponent } from './containers/customer-details/customer
   ],
   providers: [
     AppSettings,
-    CustomersTableService,
     HttpService,
+    CustomersTableService,
+    CustomerDetailsComponent
   ],
   bootstrap: [AppComponent]
 })
