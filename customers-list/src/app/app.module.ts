@@ -13,14 +13,14 @@ import { CustomersTableComponent } from './components/customers-table/customers-
 import { CustomersTableService } from './components/customers-table/customers-table.service';
 import { ToolbarComponent } from './components/shared/toolbar/toolbar.component';
 import { HttpService } from './http.service';
-import { UserDetailsComponent } from './containers/user-details/user-details.component';
+import { CustomerDetailsComponent } from './containers/customer-details/customer-details.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomersTableComponent,
     ToolbarComponent,
-    UserDetailsComponent,
+    CustomerDetailsComponent,
   ],
   imports: [
     BrowserModule,

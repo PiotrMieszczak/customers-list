@@ -1,13 +1,13 @@
-import { ToolBarData } from './../../classes/toolbarData';
+import { ToolBarData } from '../../classes/toolbarData';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-user-details',
-  templateUrl: './user-details.component.html',
-  styleUrls: ['./user-details.component.scss']
+  selector: 'app-customer-details',
+  templateUrl: './customer-details.component.html',
+  styleUrls: ['./customer-details.component.scss']
 })
-export class UserDetailsComponent implements OnInit {
+export class CustomerDetailsComponent implements OnInit {
   private userId: number;
   public toolBarData: ToolBarData;
   constructor(private _activatedRoute: ActivatedRoute) { 
