@@ -25,7 +25,7 @@ export class CustomersTableComponent implements AfterViewInit {
     'type', 
     'name', 
     'country', 
-    'website', 
+    'websiteUrl', 
     'numberOfEmployees', 
     'contractExpiryDate',
     'annualTurnover',
