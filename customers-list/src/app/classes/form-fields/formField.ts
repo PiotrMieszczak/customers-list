@@ -8,7 +8,7 @@ export class FormField {
   order: number;
   controlType: string;
   state: boolean;
-  minLength: number;
+  types: number[];
   validators?: any[];
   errorMessage?: string
 }

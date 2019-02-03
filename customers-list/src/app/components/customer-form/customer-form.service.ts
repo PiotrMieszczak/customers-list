@@ -17,15 +17,9 @@ export class CustomerFormService {
    * @returns FormField
    */
   filterFormFieldsByUserData(formFields: FormField[], customerData: Customer): FormField[] {
-    const matchedFields = [];
-    formFields.map(field => {
-     Object.keys(customerData).forEach((key) => {
-        if (field.key === key) { 
-          return matchedFields.push(field);
-        }
-      })
+    return formFields.filter(field => {
+      return field.types.includes(customerData.type)
     })
-    return matchedFields;
   }
 
   /**

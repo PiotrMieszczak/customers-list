@@ -1213,6 +1213,7 @@
         "pattern": "[a-zA-Z ]*"
       },
       "errorMessage": "Please enter minimum 3 characters",
+      "types": [1, 2],
       "order": 1
     },
     {
@@ -1222,6 +1223,7 @@
       "options": [ "Denmark", "Norway", "Sweden"],
       "required": true,
       "errorMessage": "Please select country",
+      "types": [1, 2],
       "order": 3
     },
     {
@@ -1234,6 +1236,7 @@
         "pattern": "^(https?:\/\/)?([\\da-z\\.-]+\\.[a-z\\.]{2,6}|[\\d\\.]+)([\/:?=&#]{1}[\\da-z\\.-]+)*[\/\\?]?$"
       },
       "errorMessage": "Please enter an proper Url address",
+      "types": [1, 2],
       "order": 2
     },
     {
@@ -1247,6 +1250,7 @@
         "pattern": "(\\d{1,}).*(\\d{1,})"
       },
       "errorMessage": "Please enter value higher that 0",
+      "types": [1, 2],
       "order": 4
     },
     {
@@ -1267,6 +1271,7 @@
         }
       ],
       "errorMessage": "Please select proper date",
+      "types": [1, 2],
       "order": 5
     },
     {
@@ -1280,6 +1285,7 @@
         "pattern": "(\\d{1,}).*(\\d{1,})"
       },
       "errorMessage": "Please enter value higher that 0",
+      "types": [2],
       "order": 6
     },
     {
@@ -1290,6 +1296,7 @@
         "required": true
       },
       "errorMessage": "Please select Compliance Checked",
+      "types": [2],
       "order": 7
     }
   ]
