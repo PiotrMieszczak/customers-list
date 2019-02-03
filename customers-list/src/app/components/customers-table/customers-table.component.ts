@@ -15,11 +15,11 @@ import { Customer, CustomerDb } from '../../classes/customer';
   templateUrl: './customers-table.component.html',
   styleUrls: ['./customers-table.component.scss']
 })
-export class CustomersTableComponent implements OnInit, AfterViewInit {
+export class CustomersTableComponent implements AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  public toolBarData: ToolBarData;
+  public toolBarData: string = 'Customers List';
   public dataSource$: Observable<Customer[]>;
   public displayedColumns: string[] = [
     'type', 
@@ -37,21 +37,8 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
 
   constructor(private _customersTableService: CustomersTableService, private _router: Router) { }
 
-  ngOnInit() {
-    this.createToolBarData();
-  }
-
   ngAfterViewInit() {
     this.getCustomersData();
-  }
-
-  /**
-   * Sets toolbar data
-   * 
-   * @returns void
-   */
-  createToolBarData(): void {
-    this.toolBarData = new ToolBarData('Customers List', 'primary');
   }
 
   /**
@@ -80,8 +67,7 @@ export class CustomersTableComponent implements OnInit, AfterViewInit {
                 return of([]);
               })
             )
-        }),
-        shareReplay(1)
+        })
       )
   }
 

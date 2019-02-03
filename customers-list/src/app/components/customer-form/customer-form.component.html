@@ -1,3 +1,17 @@
-<p>
-  customer-form works!
-</p>
+<ng-container *ngIf="form$ | async as form">
+  <div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form">
+     <div *ngFor="let control of controls" class="form-row">
+        <dynamic-form-field [customer]="customerData" [formField]="control" [form]="form"></dynamic-form-field> 
+     </div>
+  
+     <div class="form-row">
+        <button type="submit" [disabled]="!form.valid">Save</button>
+      </div>
+    </form>
+    
+    <div *ngIf="payLoad" class="form-row">
+      <strong>Saved the following values</strong><br>{{payLoad}}
+    </div>
+    </div>
+</ng-container>

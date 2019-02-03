@@ -1,1 +1,4 @@
-<app-toolbar [data]="toolBarData"></app-toolbar>
+<ng-container *ngIf="userData$ | async as customer">
+  <app-toolbar [data]="customer.name"></app-toolbar>
+  <customer-form [customerData]="customer"></customer-form>
+</ng-container>

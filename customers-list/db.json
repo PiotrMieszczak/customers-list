@@ -550,7 +550,7 @@
       "numberOfEmployees": 4248,
       "contractExpiryDate": "2021-07-30T03:12:53.942Z",
       "annualTurnover": 39865,
-      "complianceChecked": false
+      "complianceChecked": true
     },
     {
       "id": 61,
@@ -1200,6 +1200,59 @@
       "contractExpiryDate": "2020-01-16T08:23:27.057Z",
       "annualTurnover": 22548,
       "complianceChecked": true
+    }
+  ],
+  "formFields": [
+    {
+      "key": "name",
+      "controlType": "textbox",
+      "label": "Customer Name",
+      "required": true,
+      "order": 1
+    },
+    {
+      "key": "country",
+      "controlType": "dropDown",
+      "label": "Country",
+      "options": [ "Denmark", "Norway", "Sweden"],
+      "required": true,
+      "order": 3
+    },
+    {
+      "key": "websiteUrl",
+      "controlType": "textbox",
+      "label": "Website Url",
+      "order": 2
+    },
+    {
+      "key": "numberOfEmployees",
+      "controlType": "textbox",
+      "label": "Number Of Employees",
+      "required": true,
+      "minLength": 1,
+      "order": 4
+    },
+    {
+      "key": "contractExpiryDate",
+      "controlType": "date",
+      "label": "Contract Expiry Date",
+      "required": true,
+      "order": 5
+    },
+    {
+      "key": "annualTurnover",
+      "controlType": "textbox",
+      "label": "Annual Turnover",
+      "required": true,
+      "minLength": 1,
+      "order": 6
+    },
+    {
+      "key": "complianceChecked",
+      "controlType": "checkbox",
+      "label": "Compliance Checked",
+      "required": true,
+      "order": 7
     }
   ]
 }
