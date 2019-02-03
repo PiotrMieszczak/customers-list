@@ -1,5 +1,4 @@
 export class QueryParams {
-  private whereElement: Object = {};
   private _limit: number;
   private _start: number;
   private _sort: string;
@@ -15,7 +14,7 @@ export class QueryParams {
    * @param {any} parameters
    */
   public where(column: string, parameters: any): void {
-    this.whereElement[column] = parameters;
+    this[column] = parameters;
   }
 
   /**

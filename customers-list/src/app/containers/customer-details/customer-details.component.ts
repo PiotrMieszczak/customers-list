@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Customer } from '../../classes/customer';
 import { QueryParams } from '../../classes/queryParams';
 import { ToolBarData } from '../../classes/toolbarData';
 
 import { CustomerDetailsService } from './customer-details.service';
+import { tap, catchError, map } from 'rxjs/operators';
 @Component({
   selector: 'app-customer-details',
   templateUrl: './customer-details.component.html',
@@ -22,7 +23,6 @@ export class CustomerDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.createToolBarData();
     this.getUser();
   }
 
@@ -31,8 +31,8 @@ export class CustomerDetailsComponent implements OnInit {
    * 
    * @returns void
    */
-  createToolBarData(): void {
-    this.toolBarData = new ToolBarData('Customers List', 'primary');
+  createToolBarData(header: string): void {
+    this.toolBarData = new ToolBarData(header, 'primary');
   }
 
   /**
@@ -52,7 +52,11 @@ export class CustomerDetailsComponent implements OnInit {
   getUser(): void {
     const params = new QueryParams();
     params.where('id', this.userId);
-
-    this.userData$ = this._customerService.getCustomerById(params);
+    this.userData$ = this._customerService.getCustomerById(params)
+      .pipe(
+        tap(customer => {
+          this.createToolBarData(customer.name);
+        }),
+      )
   }
 }
