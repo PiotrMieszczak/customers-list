@@ -14,6 +14,12 @@
         </mat-select>
       </mat-form-field>
 
+     <mat-form-field *ngSwitchCase="'date'">
+          <input matInput [matDatepicker]="picker" [formControlName]="formField.key" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+     
       <div *ngSwitchCase="'checkbox'">
           <mat-label [attr.for]="formField.key"></mat-label>
           <mat-checkbox  [formControlName]="formField.key" [id]="formField.key" [checked]="formField.state">

@@ -1237,6 +1237,7 @@
       "controlType": "date",
       "label": "Contract Expiry Date",
       "required": true,
+      
       "order": 5
     },
     {

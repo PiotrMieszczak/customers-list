@@ -1,5 +1,5 @@
 <ng-container *ngIf="form$ | async as form">
-  <div>
+  <mat-card>
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
      <div *ngFor="let control of controls" class="form-row">
         <dynamic-form-field [customer]="customerData" [formField]="control" [form]="form"></dynamic-form-field> 
@@ -13,5 +13,5 @@
     <div *ngIf="payLoad" class="form-row">
       <strong>Saved the following values</strong><br>{{payLoad}}
     </div>
-    </div>
+  </mat-card>
 </ng-container>
