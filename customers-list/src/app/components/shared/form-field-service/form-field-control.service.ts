@@ -1,9 +1,10 @@
 import { Injectable }   from '@angular/core';
-import { FormControl, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { FormField } from '../../../classes/form-fields/formField';
 import { HttpService } from '../../../http.service';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import * as moment from "moment";
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,12 @@ export class FormFieldControlService {
 
     formFields.forEach(field => {
       group[field.key] =  new FormControl('');
-      if (field.validators) {
+      if (field.currentDateValidator) {
+        const validators = this.convertDateValidatorsToDate(field);
+        group[field.key].setValidators(validators);
+      }
+      
+      if (field.validators && !field.currentDateValidator) {
         this.createValidators(group,field);
       }
     });
@@ -57,4 +63,31 @@ export class FormFieldControlService {
     })
     group[field.key].setValidators(validators);
   } 
+
+
+  /**
+   * Creates validators for datepicker
+   * 
+   * @param  {FormField} field
+   * @returns ValidatorFn[]
+   */
+  convertDateValidatorsToDate(field: FormField): ValidatorFn[] {
+    const validators = [];
+    const date = field.currentDateValidator.min;
+    const minDate = moment().startOf(date as moment.unitOfTime.StartOf).format('YYYY-DD-MM');
+    const duration  = moment.duration(field.currentDateValidator.max);
+    const maxDate = moment(minDate, 'YYYY-DD-MM').add(duration).format('YYYY-DD-MM');
+    const dateRange = {
+      'min': minDate,
+      'max': maxDate,
+    }
+
+    Object.keys(field.currentDateValidator).forEach(key => {
+      if (key !== 'type') {
+        field.validators[key] = new Date(dateRange[key]);
+        validators.push(Validators[key](field.validators[key]));
+      }
+    })
+    return validators;
+  }
 }

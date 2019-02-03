@@ -3,7 +3,7 @@
     <mat-card class="container__card">
       <form (ngSubmit)="onSubmit(form.controls)" [formGroup]="form" class="form">
        <div *ngFor="let control of controls" class="form-row">
-          <dynamic-form-field [customer]="customerData" [formField]="control" [form]="form"></dynamic-form-field> 
+          <dynamic-form-field [formField]="control" [form]="form"></dynamic-form-field> 
        </div>
     
        <div>

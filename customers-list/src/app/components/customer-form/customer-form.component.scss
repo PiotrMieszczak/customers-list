@@ -4,7 +4,9 @@
   max-width: 60%;
   margin: auto;
   padding: 34px;
-
+  min-height: 400px;
+  display: flex;  
+  
   .form {
     display: flex;
     justify-content: space-between;

@@ -1,6 +1,4 @@
-import { Validators } from '@angular/forms';
-
-export class FormField {
+export interface FormField {
   value: string | number;
   key: string;
   label: string;
@@ -9,6 +7,22 @@ export class FormField {
   controlType: string;
   state: boolean;
   types: number[];
-  validators?: any[];
+  validators?;
   errorMessage?: string
+  dateValidators?: DateValidator[];
+  currentDateValidator?: DateValidator;
+  minDate?: string;
+  maxDate?: string;
+}
+
+interface DateValidator {
+  type: number,
+  min: string,
+  max: object
+}
+
+
+interface ExpiryTimeDef {
+  duration: number,
+  step: string
 }

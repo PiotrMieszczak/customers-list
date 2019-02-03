@@ -1258,16 +1258,19 @@
       "controlType": "date",
       "label": "Contract Expiry Date",
       "required": true,
+      "validators": {
+        "required": true
+      },
       "dateValidators":[
         {
           "type": 1,
           "min": "today",
-          "max": "2 years"
+          "max": {"years": 2}
         },
         {
           "type": 2,
           "min": "today",
-          "max": "3 years"
+          "max": {"years": 3}
         }
       ],
       "errorMessage": "Please select proper date",

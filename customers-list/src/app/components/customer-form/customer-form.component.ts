@@ -1,10 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, AbstractControl } from '@angular/forms';
+import { FormGroup, } from '@angular/forms';
 import { Customer } from 'src/app/classes/customer';
 import { FormFieldControlService } from '../shared/form-field-service/form-field-control.service';
 import { Observable } from 'rxjs';
 import {  map } from 'rxjs/operators';
 import { CustomerFormService } from './customer-form.service';
+
 
 @Component({
   selector: 'customer-form',
@@ -37,9 +38,8 @@ export class CustomerFormComponent implements OnInit {
           return this._customerFormService.filterFormFieldsByUserData(formFields, customer);
         }),
         map((formFields) => {
-          this.controls = Object.assign(formFields);
+          this.controls =  Object.assign(formFields);
           const formGroup = this._formFieldControlService.createFormGroup(formFields);
-          console.log('formGroup', formGroup)
           return this._customerFormService.patchInitialControlsValue(formGroup, customer);
         }),
       )

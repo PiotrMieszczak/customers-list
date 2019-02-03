@@ -1,6 +1,7 @@
 import { FormField } from '../../../classes/form-fields/formField';
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import * as moment from 'moment';
 
 @Component({
   selector: 'dynamic-form-field',
@@ -10,7 +11,7 @@ import { FormGroup } from '@angular/forms';
 export class DynamicFormFieldComponent {
   @Input() form: FormGroup;
   @Input() formField: FormField;
-  @Input() customer: FormField;
+  public startDate: Date = new Date();
 
   /**
    * Checks if form field is invalid
@@ -29,5 +30,27 @@ export class DynamicFormFieldComponent {
    */
   getErrorMessage(): string {
     return this.formField.errorMessage;
+  }
+
+  /**
+   * Validate date
+   * 
+   * @param  {string} value
+   */
+  validateDate(value: string) {
+    const picketDate = moment(value).format('YYYY-DD-MM');
+    const fromDate =  moment(this.formField.validators.min).format('YYYY-DD-MM');
+    const endDate =  moment(this.formField.validators.max).format('YYYY-DD-MM');
+    const checkisBefore = moment(picketDate, 'YYYY-DD-MM').isBefore(fromDate);
+    const checkisAfter = moment(picketDate, 'YYYY-DD-MM' ).isAfter(endDate);
+
+    if (checkisBefore && !checkisAfter) {
+      this.form.get(this.formField.key).setErrors({'matDatepickerFilter': true});
+    } else if (checkisAfter && !checkisBefore) {
+      this.form.get(this.formField.key).setErrors({'matDatepickerFilter': true});
+    } else if (!checkisAfter && !checkisAfter) {
+      this.form.get(this.formField.key).setErrors({'matDatepickerFilter': null})
+      this.form.get(this.formField.key).updateValueAndValidity();
+    }
   }
 }

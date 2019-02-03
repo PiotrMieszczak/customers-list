@@ -6,6 +6,7 @@ import { CustomerDb } from '../../classes/customer';
 import { QueryParams } from '../../classes/queryParams';
 import { HttpService } from '../../http.service'
 import * as moment from 'moment';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +21,7 @@ export class CustomersTableService {
    * @returns string
    */
   formatDate(date: string): string {
-    return moment(date).format('MM/DD/YYYY');
+    return moment(date).format('YYYY-DD-MM');
   }
 
   /**
