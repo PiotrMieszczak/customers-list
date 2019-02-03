@@ -39,8 +39,13 @@ export class CustomerFormComponent implements OnInit {
         map((formFields) => {
           this.controls = Object.assign(formFields);
           const formGroup = this._formFieldControlService.createFormGroup(formFields);
+          console.log('formGroup', formGroup)
           return this._customerFormService.patchInitialControlsValue(formGroup, customer);
         }),
       )
+  }
+
+  onSubmit(form) {
+    console.log(form);
   }
 }

@@ -12,7 +12,22 @@ export class DynamicFormFieldComponent {
   @Input() formField: FormField;
   @Input() customer: FormField;
 
-  constructor() {
-    
-  } 
+  /**
+   * Checks if form field is invalid
+   * 
+   * @param  {string} ctrlName
+   * @returns boolean
+   */
+  checkIfValid(ctrlName: string): boolean {
+    return this.form.get(ctrlName).invalid;
+  }
+
+  /**
+   * Returns error message
+   * 
+   * @returns string
+   */
+  getErrorMessage(): string {
+    return this.formField.errorMessage;
+  }
 }

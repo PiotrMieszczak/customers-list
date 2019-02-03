@@ -1,3 +1,5 @@
+import { Validators } from '@angular/forms';
+
 export class FormField {
   value: string | number;
   key: string;
@@ -7,4 +9,6 @@ export class FormField {
   controlType: string;
   state: boolean;
   minLength: number;
+  validators?: any[];
+  errorMessage?: string
 }

@@ -22,8 +22,10 @@ export class FormFieldControlService {
     const group: {[key: string]: AbstractControl} = {};
 
     formFields.forEach(field => {
-      const validators = !!field.minLength ? [Validators.required, Validators.minLength(field.minLength)] : Validators.required;
-      group[field.key] = field.required ? new FormControl('', validators) : new FormControl('');
+      group[field.key] =  new FormControl('');
+      if (field.validators) {
+        this.createValidators(group,field);
+      }
     });
     return new FormGroup(group);
   }
@@ -36,4 +38,23 @@ export class FormFieldControlService {
   getFormControls(): Observable<FormField[]> {
     return this.http.get('formFields').pipe(map(res => res.body));
   }
+
+  /**
+   * Creates standard validators
+   * 
+   * @param  {{[key:string]:AbstractControl}} group
+   * @param  {FormField} field
+   * @returns void
+   */
+  createValidators(group: {[key: string]: AbstractControl}, field: FormField): void {
+    const validators = []
+    Object.keys(field.validators).forEach(key => {
+      if (key === 'required') {
+        validators.push(Validators.required)
+      } else {
+        validators.push(Validators[key](field.validators[key]));
+      }
+    })
+    group[field.key].setValidators(validators);
+  } 
 }

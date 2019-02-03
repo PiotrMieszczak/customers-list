@@ -1207,7 +1207,12 @@
       "key": "name",
       "controlType": "textbox",
       "label": "Customer Name",
-      "required": true,
+      "validators": {
+        "required": true,
+        "minLength": "3",
+        "pattern": "[a-zA-Z ]*"
+      },
+      "errorMessage": "Please enter minimum 3 characters",
       "order": 1
     },
     {
@@ -1216,20 +1221,32 @@
       "label": "Country",
       "options": [ "Denmark", "Norway", "Sweden"],
       "required": true,
+      "errorMessage": "Please select country",
       "order": 3
     },
     {
       "key": "websiteUrl",
       "controlType": "textbox",
       "label": "Website Url",
+      "validators": {
+        "required": true,
+        "minLength": "3",
+        "pattern": "^(https?:\/\/)?([\\da-z\\.-]+\\.[a-z\\.]{2,6}|[\\d\\.]+)([\/:?=&#]{1}[\\da-z\\.-]+)*[\/\\?]?$"
+      },
+      "errorMessage": "Please enter an proper Url address",
       "order": 2
     },
     {
       "key": "numberOfEmployees",
       "controlType": "textbox",
       "label": "Number Of Employees",
-      "required": true,
       "minLength": 1,
+      "validators": {
+        "required": true,
+        "min": "1",
+        "pattern": "(\\d{1,}).*(\\d{1,})"
+      },
+      "errorMessage": "Please enter value higher that 0",
       "order": 4
     },
     {
@@ -1237,7 +1254,19 @@
       "controlType": "date",
       "label": "Contract Expiry Date",
       "required": true,
-      
+      "dateValidators":[
+        {
+          "type": 1,
+          "min": "today",
+          "max": "2 years"
+        },
+        {
+          "type": 2,
+          "min": "today",
+          "max": "3 years"
+        }
+      ],
+      "errorMessage": "Please select proper date",
       "order": 5
     },
     {
@@ -1245,14 +1274,22 @@
       "controlType": "textbox",
       "label": "Annual Turnover",
       "required": true,
-      "minLength": 1,
+      "validators": {
+        "required": true,
+        "min": "1",
+        "pattern": "(\\d{1,}).*(\\d{1,})"
+      },
+      "errorMessage": "Please enter value higher that 0",
       "order": 6
     },
     {
       "key": "complianceChecked",
       "controlType": "checkbox",
       "label": "Compliance Checked",
-      "required": true,
+      "validators": {
+        "required": true
+      },
+      "errorMessage": "Please select Compliance Checked",
       "order": 7
     }
   ]

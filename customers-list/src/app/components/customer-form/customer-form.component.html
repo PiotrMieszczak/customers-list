@@ -1,17 +1,15 @@
 <ng-container *ngIf="form$ | async as form">
-  <mat-card>
-    <form (ngSubmit)="onSubmit()" [formGroup]="form">
-     <div *ngFor="let control of controls" class="form-row">
-        <dynamic-form-field [customer]="customerData" [formField]="control" [form]="form"></dynamic-form-field> 
-     </div>
-  
-     <div class="form-row">
-        <button type="submit" [disabled]="!form.valid">Save</button>
-      </div>
-    </form>
+  <div class="container">
+    <mat-card class="container__card">
+      <form (ngSubmit)="onSubmit(form.controls)" [formGroup]="form" class="form">
+       <div *ngFor="let control of controls" class="form-row">
+          <dynamic-form-field [customer]="customerData" [formField]="control" [form]="form"></dynamic-form-field> 
+       </div>
     
-    <div *ngIf="payLoad" class="form-row">
-      <strong>Saved the following values</strong><br>{{payLoad}}
-    </div>
-  </mat-card>
+       <div>
+          <button mat-raised-button type="submit" color="warn" [disabled]="!form.valid">Save</button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
 </ng-container>
