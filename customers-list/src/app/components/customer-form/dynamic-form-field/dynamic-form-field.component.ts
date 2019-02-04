@@ -13,6 +13,10 @@ export class DynamicFormFieldComponent {
   @Input() formField: FormField;
   public startDate: Date = new Date();
 
+  ngOnInit() {
+    console.log(this.form.get('contractExpiryDate'))
+  }
+
   /**
    * Checks if form field is invalid
    * 

@@ -5,7 +5,7 @@ function generateCustomers() {
   const countryList = ["Sweden", 'Norway', 'Denmark'];
 
   for (let index = 1; index < 55; index++) {
-    // const id = faker.internet.password();
+    const id = faker.random.uuid();
     const url = faker.internet.url();
     const contractExpiryDate = faker.date.between('2019-01-30', '2022-01-30');
     const name = faker.name.firstName();
@@ -14,7 +14,7 @@ function generateCustomers() {
     });
     const country = countryList[Math.floor(Math.random()*countryList.length)];
     const tempData = {
-      id: index,
+      id: id,
       type: 1,
       name: name,
       country: country,
@@ -26,7 +26,7 @@ function generateCustomers() {
   }
 
   for (let index = 55; index < 120; index++) {
-    // const id = faker.internet.password();
+    const id = faker.random.uuid();
     const url = faker.internet.url();
     const contractExpiryDate = faker.date.between('2019-01-30', '2022-01-30');
     const name = faker.name.firstName();
@@ -38,7 +38,7 @@ function generateCustomers() {
     const complianceChecked = faker.random.boolean();
 
     const tempData = {
-      id: index,
+      id: id,
       type: 2,
       name: name,
       country: country,

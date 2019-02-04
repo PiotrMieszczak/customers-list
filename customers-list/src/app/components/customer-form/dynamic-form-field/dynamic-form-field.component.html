@@ -6,7 +6,6 @@
           <sup *ngIf="formField.required">*</sup>
         </mat-label>
        <input matInput [formControlName]="formField.key" [name]="formField.key" [type]="formField.controlType">
-       <mat-error *ngIf="checkIfValid(formField.key)">{{ getErrorMessage(formField.key) }}</mat-error>
      </mat-form-field>
     
      <mat-form-field *ngSwitchCase="'dropDown'">
@@ -17,7 +16,6 @@
         <mat-select [id]="formField.key" [formControlName]="formField.key">
           <mat-option *ngFor="let opt of formField.options" [value]="opt">{{opt}}</mat-option>
         </mat-select>
-        <mat-error *ngIf="checkIfValid(formField.key)">{{ getErrorMessage(formField.key) }}</mat-error>
       </mat-form-field>
 
      <mat-form-field *ngSwitchCase="'date'">
@@ -25,13 +23,9 @@
             {{formField.label}}
             <sup *ngIf="formField.required">*</sup>
           </mat-label>
-          <input matInput (dateChange)="changeEvent($event.value)" [matDatepicker]="picker" [formControlName]="formField.key" required>
+          <input matInput (dateChange)="validateDate($event.value)" [matDatepicker]="picker" [formControlName]="formField.key" required>
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
-          <mat-error *ngIf="form.get(formField.key).hasError('matDatepickerFilter')">
-            Start date cannot be earlier than <strong>{{ formField.currentDateValidator.min }}</strong>
-            and later than <strong></strong> from start date
-          </mat-error>
       </mat-form-field>
      
       <div *ngSwitchCase="'checkbox'">
@@ -39,8 +33,7 @@
         <mat-checkbox  [formControlName]="formField.key" [id]="formField.key" [checked]="formField.state">
           {{formField.label}}
         </mat-checkbox>
-        <mat-error *ngIf="checkIfValid(formField.key)">{{ getErrorMessage(formField.key) }}</mat-error>
       </div>
     </div>
-
+    <mat-error *ngIf="checkIfValid(formField.key)">{{ getErrorMessage(formField.key) }}</mat-error>
 </div>
