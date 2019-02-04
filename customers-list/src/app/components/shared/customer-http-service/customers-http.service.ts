@@ -12,17 +12,6 @@ export class CustomerHttpService {
   constructor(private _http: HttpService) { }
 
   /**
-   * Gets user by id
-   * 
-   * @param  {QueryParams} params
-   * @returns Observable
-   */
-  getCustomerById(params: QueryParams): Observable<Customer> {
-    const queryParams = this._http.toQueryString(params);
-    return this._http.get('customer?' + queryParams).pipe(map(res => res.body[0]))
-  }
-
-  /**
    * Gets all customers from data base
    * 
    * @param  {QueryParams} params
@@ -40,6 +29,22 @@ export class CustomerHttpService {
            return customerData;
        })
       )
+  }
+
+    /**
+   * Gets user by id
+   * 
+   * @param  {QueryParams} params
+   * @returns Observable
+   */
+  getCustomerById(params: QueryParams): Observable<Customer> {
+    const queryParams = this._http.toQueryString(params);
+    return this._http.get('customer?' + queryParams).pipe(map(res => res.body[0]))
+  }
+
+  updateCustomerData(customerId: string, newData: Customer): Observable<any> {
+    const stringifiedData = JSON.stringify(newData);
+    return this._http.patch(`customer/${customerId}`, stringifiedData);
   }
 
 }

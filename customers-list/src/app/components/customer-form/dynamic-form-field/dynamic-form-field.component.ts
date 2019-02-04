@@ -13,10 +13,6 @@ export class DynamicFormFieldComponent {
   @Input() formField: FormField;
   public startDate: Date = new Date();
 
-  ngOnInit() {
-    console.log(this.form.get('contractExpiryDate'))
-  }
-
   /**
    * Checks if form field is invalid
    * 
@@ -45,14 +41,14 @@ export class DynamicFormFieldComponent {
     const picketDate = moment(value).format('YYYY-DD-MM');
     const fromDate =  moment(this.formField.validators.min).format('YYYY-DD-MM');
     const endDate =  moment(this.formField.validators.max).format('YYYY-DD-MM');
-    const checkisBefore = moment(picketDate, 'YYYY-DD-MM').isBefore(fromDate);
-    const checkisAfter = moment(picketDate, 'YYYY-DD-MM' ).isAfter(endDate);
+    const checkIfBefore = moment(picketDate, 'YYYY-DD-MM').isBefore(fromDate);
+    const checkIfAfter = moment(picketDate, 'YYYY-DD-MM' ).isAfter(endDate);
 
-    if (checkisBefore && !checkisAfter) {
+    if (checkIfBefore && !checkIfAfter) {
       this.form.get(this.formField.key).setErrors({'matDatepickerFilter': true});
-    } else if (checkisAfter && !checkisBefore) {
+    } else if (checkIfAfter && !checkIfBefore) {
       this.form.get(this.formField.key).setErrors({'matDatepickerFilter': true});
-    } else if (!checkisAfter && !checkisAfter) {
+    } else if (!checkIfAfter && !checkIfBefore) {
       this.form.get(this.formField.key).setErrors({'matDatepickerFilter': null})
       this.form.get(this.formField.key).updateValueAndValidity();
     }

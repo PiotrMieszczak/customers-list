@@ -1,3 +1,4 @@
+import { CustomerHttpService } from 'src/app/components/shared/customer-http-service/customers-http.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, } from '@angular/forms';
 import { Customer } from 'src/app/classes/customer';
@@ -5,6 +6,7 @@ import { FormFieldControlService } from '../shared/form-field-service/form-field
 import { Observable } from 'rxjs';
 import {  map } from 'rxjs/operators';
 import { CustomerFormService } from './customer-form.service';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -19,7 +21,8 @@ export class CustomerFormComponent implements OnInit {
   public form;
   public controls = [];
 
-  constructor(private _formFieldControlService: FormFieldControlService, private _customerFormService: CustomerFormService) { }
+  constructor(private _formFieldControlService: FormFieldControlService, private _customerFormService: CustomerFormService,
+    private _customerHttpService: CustomerHttpService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getFormGroup();
@@ -45,7 +48,13 @@ export class CustomerFormComponent implements OnInit {
       )
   }
 
-  onSubmit(form) {
-    console.log(form);
+  onSubmit(controlsValue: Customer) {
+    this._customerHttpService.updateCustomerData(this.customerData.id, controlsValue).subscribe(
+      () => {},
+      () => {},
+      () => {
+        this._snackBar.open('Save successful', 'OK', {duration: 3000})
+      }
+    )
   }
 }

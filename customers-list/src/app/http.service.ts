@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { pick } from 'lodash';
 
 import { AppSettings } from './app.settings';
+import { Customer } from './classes/customer';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -29,6 +30,17 @@ export class HttpService {
     return this.http.get(this.settings.apiUrl + url, { observe: 'response' });
   }
 
+    /**
+   * Send Patch request.
+   *
+   * @param {string} url
+   * @param {Customer} payload
+   * @returns {Observable<any>}
+   * @memberof HttpService
+   */
+  public patch(url: string, payload: string): Observable<any> {
+    return this.http.patch(this.settings.apiUrl + url, payload, httpOptions);
+  }
 
   
   /**

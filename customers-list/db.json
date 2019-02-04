@@ -955,7 +955,7 @@
       "country": "Denmark",
       "websiteUrl": "http://russ.net",
       "numberOfEmployees": 57157,
-      "contractExpiryDate": "2021-02-02T23:27:46.785Z",
+      "contractExpiryDate": "2019-02-17T23:00:00.000Z",
       "annualTurnover": 15963,
       "complianceChecked": false
     },
@@ -1213,17 +1213,27 @@
         "pattern": "[a-zA-Z ]*"
       },
       "errorMessage": "Please enter minimum 3 characters",
-      "types": [1, 2],
+      "types": [
+        1,
+        2
+      ],
       "order": 1
     },
     {
       "key": "country",
       "controlType": "dropDown",
       "label": "Country",
-      "options": [ "Denmark", "Norway", "Sweden"],
+      "options": [
+        "Denmark",
+        "Norway",
+        "Sweden"
+      ],
       "required": true,
       "errorMessage": "Please select country",
-      "types": [1, 2],
+      "types": [
+        1,
+        2
+      ],
       "order": 3
     },
     {
@@ -1233,10 +1243,13 @@
       "validators": {
         "required": true,
         "minLength": "3",
-        "pattern": "^(https?:\/\/)?([\\da-z\\.-]+\\.[a-z\\.]{2,6}|[\\d\\.]+)([\/:?=&#]{1}[\\da-z\\.-]+)*[\/\\?]?$"
+        "pattern": "^(https?://)?([\\da-z\\.-]+\\.[a-z\\.]{2,6}|[\\d\\.]+)([/:?=&#]{1}[\\da-z\\.-]+)*[/\\?]?$"
       },
       "errorMessage": "Please enter an proper Url address",
-      "types": [1, 2],
+      "types": [
+        1,
+        2
+      ],
       "order": 2
     },
     {
@@ -1250,7 +1263,10 @@
         "pattern": "(\\d{1,}).*(\\d{1,})"
       },
       "errorMessage": "Please enter value higher that 0",
-      "types": [1, 2],
+      "types": [
+        1,
+        2
+      ],
       "order": 4
     },
     {
@@ -1261,20 +1277,27 @@
       "validators": {
         "required": true
       },
-      "dateValidators":[
+      "dateValidators": [
         {
           "type": 1,
           "min": "today",
-          "max": {"years": 2}
+          "max": {
+            "years": 2
+          }
         },
         {
           "type": 2,
           "min": "today",
-          "max": {"years": 3}
+          "max": {
+            "years": 3
+          }
         }
       ],
       "errorMessage": "Please select proper date",
-      "types": [1, 2],
+      "types": [
+        1,
+        2
+      ],
       "order": 5
     },
     {
@@ -1288,7 +1311,9 @@
         "pattern": "(\\d{1,}).*(\\d{1,})"
       },
       "errorMessage": "Please enter value higher that 0",
-      "types": [2],
+      "types": [
+        2
+      ],
       "order": 6
     },
     {
@@ -1299,7 +1324,9 @@
         "required": true
       },
       "errorMessage": "Please select Compliance Checked",
-      "types": [2],
+      "types": [
+        2
+      ],
       "order": 7
     }
   ]
