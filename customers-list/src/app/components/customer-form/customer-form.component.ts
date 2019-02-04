@@ -59,7 +59,7 @@ export class CustomerFormComponent implements OnInit {
       () => {},
       () => {},
       () => {
-        this._snackBar.open('Save successful', 'OK', {duration: 3000})
+        this._snackBar.open('Save successful', 'OK', {duration: 3000});
       }
     )
   }

@@ -17,6 +17,7 @@ import { FormFieldControlService } from './components/shared/form-field-service/
 import { DynamicFormFieldComponent } from './components/customer-form/dynamic-form-field/dynamic-form-field.component';
 import { CustomerFormService } from './components/customer-form/customer-form.service';
 import { CustomHttpInterceptor } from './http.interceptor';
+import { ErrorHandlerDialogComponent } from './error-handler-dialog/error-handler-dialog.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CustomHttpInterceptor } from './http.interceptor';
     CustomerDetailsComponent,
     CustomerFormComponent,
     DynamicFormFieldComponent,
+    ErrorHandlerDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +47,7 @@ import { CustomHttpInterceptor } from './http.interceptor';
     CustomerFormService,
     {provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true}
   ],
+  entryComponents: [ErrorHandlerDialogComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -82,6 +82,10 @@ export class CustomersTableComponent implements AfterViewInit {
     this._router.navigate(['customer', id]);
   }
 
+  getColumnName(name: string): string {
+    return this._customersTableService.createDisplayedColumnName(name);
+  }
+
   ngOnDestroy(): void {
     this._guard$.next();
   }

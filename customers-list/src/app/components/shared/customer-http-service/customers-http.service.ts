@@ -42,6 +42,13 @@ export class CustomerHttpService {
     return this._http.get('customer?' + queryParams).pipe(map(res => res.body[0]))
   }
 
+  /**
+   * Updates customer data
+   * 
+   * @param  {string} customerId
+   * @param  {Customer} newData
+   * @returns Observable
+   */
   updateCustomerData(customerId: string, newData: Customer): Observable<any> {
     const stringifiedData = JSON.stringify(newData);
     return this._http.patch(`customer/${customerId}`, stringifiedData);
