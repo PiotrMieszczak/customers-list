@@ -48,7 +48,13 @@ export class CustomerFormComponent implements OnInit {
       )
   }
 
-  onSubmit(controlsValue: Customer) {
+  /**
+   * Submit new data
+   * 
+   * @param  {Customer} controlsValue
+   * @returns void
+   */
+  onSubmit(controlsValue: Customer): void {
     this._customerHttpService.updateCustomerData(this.customerData.id, controlsValue).subscribe(
       () => {},
       () => {},

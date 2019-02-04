@@ -2,9 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MaterialModule } from './material.module';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppSettings } from './app.settings';
 import { AppComponent } from './app.component';
@@ -17,6 +16,7 @@ import { CustomerFormComponent } from './components/customer-form/customer-form.
 import { FormFieldControlService } from './components/shared/form-field-service/form-field-control.service';
 import { DynamicFormFieldComponent } from './components/customer-form/dynamic-form-field/dynamic-form-field.component';
 import { CustomerFormService } from './components/customer-form/customer-form.service';
+import { CustomHttpInterceptor } from './http.interceptor';
 
 @NgModule({
   declarations: [
@@ -42,7 +42,8 @@ import { CustomerFormService } from './components/customer-form/customer-form.se
     CustomersTableService,
     CustomerDetailsComponent,
     FormFieldControlService,
-    CustomerFormService
+    CustomerFormService,
+    {provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
