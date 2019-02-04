@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable  } from 'rxjs';
+import { tap,} from 'rxjs/operators';
 
 import { Customer } from '../../classes/customer';
 import { QueryParams } from '../../classes/queryParams';
 import { ToolBarData } from '../../classes/toolbarData';
-
-import { CustomerDetailsService } from './customer-details.service';
-import { tap, catchError, map } from 'rxjs/operators';
+import { CustomerHttpService } from '../../components/shared/customer-http-service/customers-http.service';
 @Component({
   selector: 'app-customer-details',
   templateUrl: './customer-details.component.html',
@@ -18,7 +17,7 @@ export class CustomerDetailsComponent implements OnInit {
   private userId: number;
   public toolBarData: ToolBarData;
 
-  constructor(private _activatedRoute: ActivatedRoute, private _customerService: CustomerDetailsService) { 
+  constructor(private _activatedRoute: ActivatedRoute, private _customerHttpService: CustomerHttpService) { 
     this.assignUserIdToLocalVariable();
   }
 
@@ -52,7 +51,7 @@ export class CustomerDetailsComponent implements OnInit {
   getUser(): void {
     const params = new QueryParams();
     params.where('id', this.userId);
-    this.userData$ = this._customerService.getCustomerById(params)
+    this.userData$ = this._customerHttpService.getCustomerById(params)
       .pipe(
         tap(customer => {
           this.createToolBarData(customer.name);

@@ -1,14 +1,13 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, combineLatest, of } from 'rxjs';
-import { map, startWith, catchError,  switchMap, shareReplay } from 'rxjs/operators';
+import { map, startWith, catchError,  switchMap } from 'rxjs/operators';
 
 import { MatPaginator, MatSort } from '@angular/material';
 
 import { CustomersTableService } from './customers-table.service';
-import { ToolBarData } from './../../classes/toolbarData';
-import { QueryParams } from '../../classes/queryParams';
 import { Customer, CustomerDb } from '../../classes/customer';
+import { CustomerHttpService } from '../shared/customer-http-service/customers-http.service';
 
 @Component({
   selector: 'customers-table',
@@ -36,7 +35,8 @@ export class CustomersTableComponent implements AfterViewInit {
   private count: Subject<number> = new Subject<number>();
   public count$ = this.count.asObservable();
 
-  constructor(private _customersTableService: CustomersTableService, private _router: Router) { }
+  constructor(private _customersTableService: CustomersTableService, private _router: Router,
+    private _customerHttpService: CustomerHttpService) { }
 
   ngAfterViewInit() {
     this.getCustomersData();
@@ -52,8 +52,8 @@ export class CustomersTableComponent implements AfterViewInit {
       .pipe(
         // takeUntil(this._guard$),
         switchMap(([sortData, paginationData]) => {
-          const params = this.createQueryParams(sortData, paginationData);
-          return this._customersTableService.getCustomersList(params)
+          const params = this._customersTableService.createQueryParams(sortData, paginationData);
+          return this._customerHttpService.getCustomersList(params)
             .pipe(
               map((customersDb: CustomerDb) => {
                 this.count.next(customersDb.count);
@@ -70,33 +70,6 @@ export class CustomersTableComponent implements AfterViewInit {
             )
         })
       )
-  }
-
-  /**
-   * Creates query params based on sort and pagination data
-   * 
-   * @param  {} sortData
-   * @param  {} pagData
-   * @returns QueryParams
-   */
-  createQueryParams(sortData, pagData): QueryParams {
-    const params = new QueryParams();
-    params.sortBy(sortData.active, sortData.direction);
-    params.setLimit(pagData.pageSize);
-    params.setOffset(pagData.index);
-    const page = pagData.pageIndex ? pagData.pageIndex + 1 : 1;
-    params.setPage(page);
-    return params;
-  }
-
-  /**
-   * Creates columns names
-   * 
-   * @param  {string} columnName
-   * @returns string
-   */
-  createDisplayedColumnName(columnName: string): string {
-    return columnName.split(/(?=[A-Z])/).join(' ').toLocaleUpperCase();
   }
 
   /**

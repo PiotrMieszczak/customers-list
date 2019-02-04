@@ -12,7 +12,7 @@ import * as moment from 'moment';
 })
 export class CustomersTableService {
 
-  constructor(private _httpService: HttpService) { }
+  constructor() { }
 
   /**
    * Formats date string to MM/DD/YYYY format
@@ -25,22 +25,29 @@ export class CustomersTableService {
   }
 
   /**
-   * Gets all customers from data base
+   * Creates query params based on sort and pagination data
    * 
-   * @param  {QueryParams} params
-   * @returns Observable
+   * @param  {} sortData
+   * @param  {} pagData
+   * @returns QueryParams
    */
-  getCustomersList(params: QueryParams): Observable<CustomerDb> {
-    const queryParams = this._httpService.toQueryString(params);
-    return this._httpService.get('customer?'+ queryParams)
-       .pipe(
-         map(data => {
-           const customerData: CustomerDb = {
-             data: data.body,
-             count:  data.headers.getAll('x-total-count')
-           }
-           return customerData;
-       })
-      )
+  createQueryParams(sortData, pagData): QueryParams {
+    const params = new QueryParams();
+    params.sortBy(sortData.active, sortData.direction);
+    params.setLimit(pagData.pageSize);
+    params.setOffset(pagData.index);
+    const page = pagData.pageIndex ? pagData.pageIndex + 1 : 1;
+    params.setPage(page);
+    return params;
+  }
+
+  /**
+   * Creates columns names
+   * 
+   * @param  {string} columnName
+   * @returns string
+   */
+  createDisplayedColumnName(columnName: string): string {
+    return columnName.split(/(?=[A-Z])/).join(' ').toLocaleUpperCase();
   }
 }
