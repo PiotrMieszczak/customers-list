@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongodb = require("mongodb");
 const ObjectID = mongodb.ObjectID;
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8000;
 const CUSTOMER_COLLECTION = "customer";
 const FORMFIELD_COLLECTION = "formFields";
 
@@ -14,10 +14,10 @@ var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
 let db;
-
+const test = "mongodb://heroku_2xlddf4p:27upm95t2u3tmu4mo2cb1fk9l6@ds121415.mlab.com:21415/heroku_2xlddf4p";
 console.log('process.env.MONGODB_URI', process.env);
 
-mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:8080/", function (err, client) {
+mongodb.MongoClient.connect(test || "mongodb://localhost:8000/", function (err, client) {
   if (err) {
     process.exit(1);
   }
@@ -42,7 +42,9 @@ function handleError(res, reason, message, code) {
 
 
 app.get("/api/customer", (req, res) => {
+  console.log(req, res);
   db.collection(CONTACTS_COLLECTION).find({}).toArray((err, docs) => {
+    console.log(docs);
     if (err) {
       handleError(res, err.message, "Failed to get customers data.");
     } else {
