@@ -13,9 +13,8 @@ app.use(bodyParser.json());
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
+app.listen(process.env.PORT || 8080);
 let db;
-const test = "mongodb://heroku_2xlddf4p:27upm95t2u3tmu4mo2cb1fk9l6@ds121415.mlab.com:21415/heroku_2xlddf4p";
-console.log('process.env.MONGODB_URI', process.env);
 
 mongodb.MongoClient.connect(test || "mongodb://localhost:8000/", function (err, client) {
   if (err) {

@@ -9,7 +9,7 @@ import { ErrorDialogService } from './error-handler-dialog/error-handler-dialog.
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
 
-  constructor(private _errorDialogService: ErrorDialogService) {}
+  constructor(public _errorDialogService: ErrorDialogService) {}
 
   intercept(request: HttpRequest<any> , next: HttpHandler): Observable<HttpEvent<any>> {
 

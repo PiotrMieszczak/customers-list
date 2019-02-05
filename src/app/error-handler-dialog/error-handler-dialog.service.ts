@@ -7,8 +7,6 @@ import { CustomError } from '../classes/error';
 @Injectable({
   providedIn: 'root'
 })
-
-@Injectable()
 export class ErrorDialogService {
   public dialogRef;
 

@@ -1,4 +1,4 @@
-import { Component, Inject  } from '@angular/core';
+import { Component, Inject, Optional  } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import { CustomError } from '../classes/error';
@@ -10,8 +10,8 @@ import { CustomError } from '../classes/error';
 })
 export class ErrorHandlerDialogComponent  {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: CustomError,
-    private dialogRef: MatDialogRef<ErrorHandlerDialogComponent>) {
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: CustomError,
+    @Optional() public dialogRef: MatDialogRef<ErrorHandlerDialogComponent>) {
   }
 
   /**
