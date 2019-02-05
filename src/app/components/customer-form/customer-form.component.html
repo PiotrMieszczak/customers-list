@@ -1,4 +1,9 @@
 <ng-container *ngIf="form$ | async as form">
+  <div class="return">
+    <a class="link" [routerLink]="'/'">
+      <i class="material-icons">arrow_back</i>
+    </a>
+  </div>
   <div class="container">
     <mat-card class="container__card">
       <form (ngSubmit)="onSubmit(form.value)" [formGroup]="form" class="form">
@@ -11,5 +16,10 @@
         </div>
       </form>
     </mat-card>
+  </div>
+</ng-container>
+<ng-container *ngIf="!form$ | async">
+  <div class="container container--spinner">
+    <mat-spinner></mat-spinner>
   </div>
 </ng-container>

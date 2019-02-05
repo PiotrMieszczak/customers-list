@@ -4,7 +4,7 @@ import { FormGroup, } from '@angular/forms';
 import { Customer } from 'src/app/classes/customer';
 import { FormFieldControlService } from '../shared/form-field-service/form-field-control.service';
 import { Observable } from 'rxjs';
-import {  map } from 'rxjs/operators';
+import {  map, delay, shareReplay } from 'rxjs/operators';
 import { CustomerFormService } from './customer-form.service';
 import { MatSnackBar } from '@angular/material';
 
@@ -45,6 +45,7 @@ export class CustomerFormComponent implements OnInit {
           const formGroup = this._formFieldControlService.createFormGroup(formFields);
           return this._customerFormService.patchInitialControlsValue(formGroup, customer);
         }),
+        shareReplay(1)
       )
   }
 

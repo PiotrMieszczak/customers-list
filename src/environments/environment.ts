@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  location: 'localhost:4000'
+  // location: 'localhost:4000'
+  location: 'customer-list-json-server.herokuapp.com'
 };
 
 /*

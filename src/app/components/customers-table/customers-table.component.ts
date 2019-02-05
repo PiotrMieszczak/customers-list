@@ -1,7 +1,7 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject, combineLatest, of } from 'rxjs';
-import { map, startWith, catchError,  switchMap } from 'rxjs/operators';
+import { map, startWith, catchError,  switchMap, shareReplay } from 'rxjs/operators';
 
 import { MatPaginator, MatSort } from '@angular/material';
 
@@ -31,7 +31,6 @@ export class CustomersTableComponent implements AfterViewInit {
     'annualTurnover',
     'complianceChecked'
   ];
-  private _guard$ = new Subject();
   private count: Subject<number> = new Subject<number>();
   public count$ = this.count.asObservable();
 
@@ -50,7 +49,6 @@ export class CustomersTableComponent implements AfterViewInit {
   getCustomersData(): void {
     this.dataSource$ = combineLatest(this.sort.sortChange.pipe(startWith({})), this.paginator.page.pipe(startWith({})))
       .pipe(
-        // takeUntil(this._guard$),
         switchMap(([sortData, paginationData]) => {
           const params = this._customersTableService.createQueryParams(sortData, paginationData);
           return this._customerHttpService.getCustomersList(params)
@@ -62,11 +60,7 @@ export class CustomersTableComponent implements AfterViewInit {
                   return customer;
                 })
               }),
-              catchError(err => {
-                // TO DO Error handling
-                console.error(err);
-                return of([]);
-              })
+              shareReplay(1)
             )
         })
       )
@@ -84,9 +78,5 @@ export class CustomersTableComponent implements AfterViewInit {
 
   getColumnName(name: string): string {
     return this._customersTableService.createDisplayedColumnName(name);
-  }
-
-  ngOnDestroy(): void {
-    this._guard$.next();
   }
 }
