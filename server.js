@@ -4,11 +4,14 @@ const mongodb = require("mongodb");
 const ObjectID = mongodb.ObjectID;
 
 const port = process.env.PORT || 8080;
-var CONTACTS_COLLECTION = "customer";
+const CUSTOMER_COLLECTION = "customer";
+const FORMFIELD_COLLECTION = "formFields";
 
 var app = express();
 app.use(bodyParser.json());
 
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
 
 let db;
 
@@ -42,11 +45,14 @@ function handleError(res, reason, message, code) {
  *    POST: creates a new contact
  */
 
-app.get("/api/customer", function(req, res) {
+app.get("/api/customer", (req, res) => {
+
 });
 
-app.post("/api/customer", function(req, res) {
+app.get("/api/formFields", (req, res) => {
+
 });
+
 
 /*  "/api/contacts/:id"
  *    GET: find contact by id
@@ -54,12 +60,10 @@ app.post("/api/customer", function(req, res) {
  *    DELETE: deletes contact by id
  */
 
-app.get("/api/customer/:id", function(req, res) {
+app.get("/api/customer/:id", (req, res) => {
+  
 });
 
-app.put("/api/customer/:id", function(req, res) {
-});
+app.patch("/api/customer", (req, res) => {
 
-app.delete("/api/customer/:id", function(req, res) {
-});
-
+})
