@@ -1,0 +1,39 @@
+<div [formGroup]="form" class="form__group">
+  <div [ngSwitch]="formField.controlType" class="group__field">
+     <mat-form-field *ngSwitchCase="'textbox'">
+       <mat-label [attr.for]="formField.key">
+          {{formField.label}}
+          <sup *ngIf="formField.required">*</sup>
+        </mat-label>
+       <input matInput [formControlName]="formField.key" [name]="formField.key" [type]="formField.controlType">
+     </mat-form-field>
+    
+     <mat-form-field *ngSwitchCase="'dropDown'">
+        <mat-label [attr.for]="formField.key">
+          {{formField.label}}
+          <sup *ngIf="formField.required">*</sup>
+        </mat-label>
+        <mat-select [id]="formField.key" [formControlName]="formField.key">
+          <mat-option *ngFor="let opt of formField.options" [value]="opt">{{opt}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+     <mat-form-field *ngSwitchCase="'date'">
+        <mat-label [attr.for]="formField.key">
+            {{formField.label}}
+            <sup *ngIf="formField.required">*</sup>
+          </mat-label>
+          <input matInput (dateChange)="validateDate($event.value)" [matDatepicker]="picker" [formControlName]="formField.key" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+      </mat-form-field>
+     
+      <div *ngSwitchCase="'checkbox'">
+        <mat-label [attr.for]="formField.key"></mat-label>
+        <mat-checkbox  [formControlName]="formField.key" [id]="formField.key" [checked]="formField.state">
+          {{formField.label}}
+        </mat-checkbox>
+      </div>
+    </div>
+    <mat-error *ngIf="checkIfValid(formField.key)">{{ getErrorMessage(formField.key) }}</mat-error>
+</div>
