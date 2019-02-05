@@ -40,30 +40,48 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-/*  "/api/customer"
- *    GET: finds all contacts
- *    POST: creates a new contact
- */
 
 app.get("/api/customer", (req, res) => {
-
+  db.collection(CONTACTS_COLLECTION).find({}).toArray((err, docs) => {
+    if (err) {
+      handleError(res, err.message, "Failed to get contacts.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
 });
-
-app.get("/api/formFields", (req, res) => {
-
-});
-
-
-/*  "/api/contacts/:id"
- *    GET: find contact by id
- *    PUT: update contact by id
- *    DELETE: deletes contact by id
- */
 
 app.get("/api/customer/:id", (req, res) => {
-  
+  db.collection(CUSTOMER_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, (err, doc) => {
+    if (err) {
+      handleError(res, err.message, "Failed to get contact");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
 });
 
 app.patch("/api/customer", (req, res) => {
+  const updateDoc = req.body;
+  delete updateDoc._id;
 
+  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, (err, doc) => {
+    if (err) {
+      handleError(res, err.message, "Failed to update contact");
+    } else {
+      updateDoc._id = req.params.id;
+      res.status(200).json(updateDoc);
+    }
+  });
 })
+
+
+app.get("/api/formFields", (req, res) => {
+  db.collection(FORMFIELD_COLLECTION).find({}).toArray((err, docs) => {
+    if (err) {
+      handleError(res, err.message, "Failed to get contacts.");
+    } else {
+      res.status(200).json(docs);
+    }
+  });
+});
