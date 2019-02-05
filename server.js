@@ -13,10 +13,10 @@ app.use(bodyParser.json());
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
-app.listen(process.env.PORT || 8080);
+app.listen(port);
 let db;
 
-mongodb.MongoClient.connect(test || "mongodb://localhost:8000/", function (err, client) {
+mongodb.MongoClient.connect(process.env.MONGODB_URI || "mongodb://localhost:8000/", function (err, client) {
   if (err) {
     process.exit(1);
   }
@@ -41,9 +41,7 @@ function handleError(res, reason, message, code) {
 
 
 app.get("/api/customer", (req, res) => {
-  console.log(req, res);
   db.collection(CONTACTS_COLLECTION).find({}).toArray((err, docs) => {
-    console.log(docs);
     if (err) {
       handleError(res, err.message, "Failed to get customers data.");
     } else {
