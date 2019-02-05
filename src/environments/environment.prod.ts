@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  location: 'localhost'
+  location: 'customers-list-nordea.herokuapp.com'
 };
